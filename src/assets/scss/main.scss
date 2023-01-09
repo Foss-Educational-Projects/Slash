@@ -13,7 +13,7 @@ html, body {
 }
 :root {
 	--main-bg-color:silver;
-	--main-border-color: grey;
+	--main-border-color: chocolate;
 }
 
 #root {
@@ -29,11 +29,16 @@ html, body {
 	background-color: var(--main-bg-color);
 	padding: 10px;
 	border: 5px solid var(--main-border-color);
-	box-shadow: 0 0 10px black;
+	box-shadow: 0 0 20px var(--main-border-color);
 	border-radius: 10px;
 	display: grid;
 	column-gap: 10px;
 	row-gap: 10px;
+	background-image: url('./../images/drum.jpg');
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
 	grid-template-areas: 
 		"title title" 
 		"play controls"

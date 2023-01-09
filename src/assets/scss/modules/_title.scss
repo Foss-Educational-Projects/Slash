@@ -1,0 +1,37 @@
+@mixin gradient-title {
+	background:linear-gradient(45deg, orangered, cyan, purple);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color:transparent;
+}
+#display {
+	grid-area: title;
+	font-size: 1em;
+	text-align: right;
+	text-transform: uppercase;
+	display: flex;
+	color: white;
+	justify-content: flex-end;
+	align-items: center;
+	font-size: 1.2em;
+	margin-bottom: 1.2em;
+	font-weight: bolder;
+	font-style: italic;
+	font-family: "Verdana", cursive;
+	@include gradient-title;
+
+	p {
+		padding: 0;
+		margin: 0;
+	}
+	i {
+		margin-left: 5px;
+		transform: rotateZ(9deg);
+		@include gradient-title;
+	}
+}
+
+@media only screen and (max-width: 600px){
+	#display {
+		justify-content: center;
+	}
+}

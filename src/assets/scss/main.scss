@@ -1,0 +1,53 @@
+@use 'bootstrap/scss/bootstrap';
+@use './modules/_title';
+@use './modules/_drum-play-buttons';
+@use './modules/_drum-control-buttons';
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+html, body {
+	height: 100%;
+}
+:root {
+	--main-bg-color:silver;
+	--main-border-color: grey;
+}
+
+#root {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+}
+
+#drum-machine {
+	margin: 15px;
+	width: 600px;
+	background-color: var(--main-bg-color);
+	padding: 10px;
+	border: 5px solid var(--main-border-color);
+	box-shadow: 0 0 10px black;
+	border-radius: 10px;
+	display: grid;
+	column-gap: 10px;
+	row-gap: 10px;
+	grid-template-areas: 
+		"title title" 
+		"play controls"
+		"play controls"
+		;
+}
+
+@media only screen and (max-width: 600px){
+	#drum-machine {
+		grid-template-areas: 
+			"title"
+		 	"play" 
+		 	"controls"
+		 	;
+		align-content: center;
+	}
+}

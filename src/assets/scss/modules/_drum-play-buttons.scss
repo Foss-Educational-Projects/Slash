@@ -1,0 +1,29 @@
+.play-button-container {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.drum-play-buttons {
+	width: 300px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+	column-gap: 10px;
+	row-gap:10px;
+	grid-area: play;
+}
+
+.drum-pad {
+	padding: 10px 0;
+	border: none;
+	font-size: 1.5em;
+	box-shadow: 0 10px 10px grey;
+	position: relative;
+	top: 0px;
+	transition: top, 100ms ease-in-out;
+}
+.drum-pad:active {
+	top: 10px;
+	transition: top, 100ms ease-in-out;
+}

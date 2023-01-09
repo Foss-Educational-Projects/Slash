@@ -1,0 +1,23 @@
+.drum-control-buttons {
+	grid-area: controls;
+}
+:root {
+	--display-box-bg-color:grey;
+}
+.display-box {
+	width: 100%;
+	height: 50px;
+	border-radius: 10px;
+	box-shadow: 0 0 10px silver;
+	background: var(--display-box-bg-color);
+}
+
+@media only screen and (max-width: 600px){
+	.drum-control-buttons {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+	}
+}

@@ -1,8 +1,9 @@
 import React from "react";
-import { Form,  } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import { Form } from 'react-bootstrap'
 
 const DrumControlButtons = () => {
-
+	const data = useSelector(state => state.data.text)
 	const checked = (e) => {
 		if(e.currentTarget.checked){
 			return true;
@@ -13,13 +14,12 @@ const DrumControlButtons = () => {
 	}
 	return (
 		<div className="drum-control-buttons">
-			<div className="display-box text-white" id="display-box"></div>
+			<div className="display-box text-white" id="display-box">{data}</div>
 			<Form.Check 
 				type="switch"
 				id="custom-switch"
 				label="Power"
 				className="fs-3 text-white"
-				defaultChecked={false}
 			/>
 			<Form.Check 
 				type="switch"

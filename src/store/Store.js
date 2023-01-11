@@ -1,8 +1,9 @@
-import { createStore } from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 
-const reducer = (state = { volume: 0 }, action) => {
+import  Data from './../data/Data'
 
-}
-const store = createStore(reducer);
-
-export default store;
+export const store = configureStore({
+	reducer:{
+		data: Data
+	}
+})

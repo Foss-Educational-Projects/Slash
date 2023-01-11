@@ -13,47 +13,56 @@ const buttons = [
 		{
 			id: 'q',
 			audioSrc: Heater1,
-			name: 'Heater-1'
+			name: 'Heater-1',
+			event: 'Q'
 		},
 		{
 			id: 'w',
 			audioSrc: Heater2,
-			name: 'Heater-2'
+			name: 'Heater-2',
+			event: 'W'
 		},
 		{
 			id: 'e',
 			audioSrc: Heater3,
-			name: 'Heater-3'
+			name: 'Heater-3',
+			event: 'E'
 		},
 		{
 			id: 'a',
 			audioSrc: Heater4,
-			name: 'Heater-4'
+			name: 'Heater-4',
+			event: 'A'
 		},
 		{
 			id: 's',
 			audioSrc: Heater5,
-			name: 'Heater-5'
+			name: 'Heater-5',
+			event: 'S'
 		},
 		{
 			id: 'd',
 			audioSrc: Kick_n_Hat,
-			name: 'Kick_n_Hat'
+			name: 'Kick_n_Hat',
+			event: 'D'
 		},
 		{
 			id: 'z',
 			audioSrc: Cev_H2,
-			name: 'Cev_H2'
+			name: 'Cev_H2',
+			event: 'Z'
 		},
 		{
 			id: 'x',
 			audioSrc: Dsc_Oh,
-			name: 'Dsc_Oh'
+			name: 'Dsc_Oh',
+			event: 'X'
 		},
 		{
 			id: 'c',
 			audioSrc: RP4_KICK_1,
-			name: 'RP4_KICK_1'
+			name: 'RP4_KICK_1',
+			event: 'C'
 		},
 	]
 

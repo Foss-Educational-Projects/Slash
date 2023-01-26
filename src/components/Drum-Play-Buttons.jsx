@@ -4,8 +4,9 @@ import Button from 'react-bootstrap/Button'
 import buttons from './../data/Audio'
 import { changeText } from './../data/Data'
 
-const [text, setText] = useState("")
+
 const DrumPlayButtons = () => {
+	const [text, setText] = useState("")
 	const dispatch = useDispatch()
 	const playAudioByMouse = (e) => {
 		e.currentTarget.childNodes[1].play()
@@ -79,5 +80,4 @@ const DrumPlayButtons = () => {
 		</div>
 	)
 }
-export { text };
 export default DrumPlayButtons;

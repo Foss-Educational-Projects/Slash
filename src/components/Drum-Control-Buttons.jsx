@@ -5,7 +5,7 @@ import { Form } from 'react-bootstrap'
 const DrumControlButtons = () => {
 	const data = useSelector(state => state.data.text)
 	const checked = (e) => {
-		if(e.currentTarget.checked){
+		if (e.currentTarget.checked) {
 			return true;
 		}
 		else {
@@ -28,7 +28,12 @@ const DrumControlButtons = () => {
 				className="fs-3 text-white"
 
 			/>
-			<Form.Label className="fs-4 m-0 text-start text-white">Volume</Form.Label>
+			<Form.Label 
+				className="fs-4 m-0 text-start text-white" 
+				aria-valuemax={100} 
+				aria-valuemin={0} 
+				defaultValue={50}
+			>Volume</Form.Label>
 			<Form.Range />
 				
 		</div>

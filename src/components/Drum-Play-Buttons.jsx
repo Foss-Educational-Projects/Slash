@@ -1,62 +1,67 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux'
+import React, {useRef, useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import Button from 'react-bootstrap/Button'
 import buttons from './../data/Audio'
-import { changeText } from './../data/Data'
-
+import { changeText } from './../features/activeValueSlice'
 
 const DrumPlayButtons = () => {
-	const [text, setText] = useState("")
+	const btnRef = useRef(null);
+	const audioVolume = useSelector((state) => state.volume.value)
+	const [text, setText] = useState(audioVolume)
 	const dispatch = useDispatch()
-	const playAudioByMouse = (e) => {
-		e.currentTarget.childNodes[1].play()
 
+	const keyDownEvents = (node) => {
+		let dom = document.getElementById(node);
+		dom.childNodes[1].play();
+		dom.style.top = "10px";
+		setTimeout(() => {
+			dom.style.top = "0px";
+		}, 100)
+		dispatch(changeText(dom.value))
+	}
+
+	const mouseDownEvents = (e) => {
+		e.target.childNodes[1].play()
+		e.target.childNodes[1].volume = audioVolume / 100;
+		dispatch(changeText(e.target.value))
+		
 	}
 	useEffect(() => {
 		window.addEventListener('keydown', (e) => {
 			switch (e.key) {
 				case 'q':
-					document.getElementById('q').childNodes[1].play()
-					setText(buttons[0].name)
+					keyDownEvents("q")
 					break;
 				case 'w':
-					document.getElementById('w').childNodes[1].play()
-					setText(buttons[1].name)
+					keyDownEvents("w")
 					break;
 				case 'e':
-					document.getElementById('e').childNodes[1].play()
-					setText(buttons[2].name)
+					keyDownEvents("e")
 					break;
 				case 'a':
-					document.getElementById('a').childNodes[1].play()
-					setText(buttons[3].name)
+					keyDownEvents("a")
 					break;
 				case 's':
-					document.getElementById('s').childNodes[1].play()
-					setText(buttons[4].name)
+					keyDownEvents("s")
 					break;
 				case 'd':
-					document.getElementById('d').childNodes[1].play()
-					setText(buttons[5].name)
+					keyDownEvents("d")
 					break;
 				case 'z':
-					document.getElementById('z').childNodes[1].play()
-					setText(buttons[6].name)
+					keyDownEvents("z")
 					break;
 				case 'x':
-					document.getElementById('x').childNodes[1].play()
-					setText(buttons[7].name)
+					keyDownEvents("x")
 					break;
 				case 'c':
-					document.getElementById('c').childNodes[1].play()
-					setText(buttons[8].name)
+					keyDownEvents("c")
 					break;
 				default:
 					console.log("This Key Is Not Associated With Any Functionality Of The App");
 					break;
 			}
 		})
-	}, [])
+	}, [text])
 	return (
 		<div className="play-button-container">
 			<div className="drum-play-buttons">
@@ -65,8 +70,9 @@ const DrumPlayButtons = () => {
 						<Button 
 							variant="none" 
 							key={index} 
-							id={btn.id} 
-							onClick={playAudioByMouse}  
+							id={btn.id}
+							value={btn.audioName}
+							onClick={mouseDownEvents}
 							className='drum-pad text-uppercase'
 						>
 							{btn.id}

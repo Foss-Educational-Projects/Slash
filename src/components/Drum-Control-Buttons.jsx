@@ -1,30 +1,51 @@
-import React, { useRef } from "react";
-import { useSelector } from 'react-redux'
+import React, { useRef, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import { Form } from 'react-bootstrap'
+import { increase } from "../features/volumeSlice";
+import { changeText } from "../features/activeValueSlice";
 
+import volumeValueStyles from "../assets/styles/volumeValueStyle";
 const DrumControlButtons = () => {
 	const powerRef = useRef(null)
 	const bankRef = useRef(null)
-	const data = useSelector(state => state.data.text)
+	const volumeRef = useRef(null)
+
+	const activeValue = useSelector(state => state.activeValue.value)
 	const volume = useSelector(state => state.volume.value)
-	const switchChecked = () => {
-		if (powerRef.current.checked) {
-			console.log("Checked");
+
+	const [vol, setVol] = useState(volume)
+
+	const dispatch = useDispatch();
+
+	const handleVolume = () => {
+		dispatch(increase(vol))
+	}
+	const handleRangeInput = (e) => {
+		setVol(e.target.value)
+		dispatch(changeText("Volume: " + e.target.value))
+	}
+	const switchChecked = (e) => {
+		if(e.currentTarget.checked){
+			console.log("Checked")
+			volumeRef.current.removeAttribute("disabled")
 		}
 		else {
-			console.log("Unchecked");
+			console.log("Unchecked")
+			volumeRef.current.setAttribute("disabled", "false")
+			
 		}
 	}
-	console.log(powerRef.current)
 	return (
 		<div className="drum-control-buttons">
-			<div className="display-box text-white" id="display-box">{data}</div>
+			<div className="display-box text-white" id="display-box">{activeValue}</div>
 			<Form.Check 
 				type="switch"
+				defaultChecked
 				id="custom-switch"
 				label="Power"
 				className="fs-3 text-white"
 				ref={powerRef}
+				onClick={switchChecked}
 			/>
 			<Form.Check 
 				type="switch"
@@ -32,24 +53,23 @@ const DrumControlButtons = () => {
 				label="Bank"
 				className="fs-3 text-white"
 				ref={bankRef}
-
 			/>
 			<Form.Label 
-				className="fs-4 m-0 text-start text-white" 
+				className="fs-4 m-0 text-start text-white drum-control-form-label" 
 				style={{display:"flex", justifyContent:"space-between"}}
-				aria-valuemax={100}
-				aria-valuemin={0}
-				defaultValue={50}
-				onInput={switchChecked}
-				onChange={switchChecked}
 			>
 			<p>Volume</p>
-			<p>{volume}</p>
+			<p style={volumeValueStyles}>{vol}</p>
 			</Form.Label>
-			<Form.Range />
+			<Form.Range 
+				aria-valuemax={100}
+				aria-valuemin={0}
+				defaultValue={vol}
+				onInput={handleRangeInput}
+				ref={volumeRef}
+			/>
 				
 		</div>
 	)
 }
-
 export default DrumControlButtons;

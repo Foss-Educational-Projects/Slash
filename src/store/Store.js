@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
 import volumeReducer from './../features/volumeSlice'
-import  Data from './../data/Data'
+import  activeValueSlice from './../features/activeValueSlice';
 
 export const store = configureStore({
 	reducer:{
-		data: Data,
+		activeValue: activeValueSlice,
 		volume: volumeReducer
 	}
 })

@@ -55,4 +55,9 @@ html, body {
 		 	;
 		align-content: center;
 	}
+	@media (orientation: landscape){
+	#root {
+		height: auto;
+	}
+}
 }

@@ -19,7 +19,7 @@ import GiveLight from './../assets/audio/Give_us_a_light.mp3';
 import PunchyKick from './../assets/audio/punchy_kick_1.mp3';
 import SideStick from './../assets/audio/side_stick_1.mp3';
 
-const buttons = [
+export const heaterAudios = [
 		{
 			id: 'q',
 			audioSrc: Heater1,
@@ -132,4 +132,3 @@ export const bankAudios = [
 			event: 'C'
 		},
 ]
-export default buttons;

@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import Button from 'react-bootstrap/Button'
-import buttons, { bankAudios } from './../data/Audio'
+import {heaterAudios, bankAudios } from './../data/Audio'
 import { changeText } from './../features/activeValueSlice'
 
 const DrumPlayButtons = () => {
@@ -65,8 +65,7 @@ const DrumPlayButtons = () => {
 	return (
 		<div className="play-button-container">
 			<div className="drum-play-buttons">
-				{}
-				{bankMode ? buttons.map((btn, index) => {
+				{!bankMode ? heaterAudios.map((btn, index) => {
 					return (
 						<Button 
 							variant="none" 

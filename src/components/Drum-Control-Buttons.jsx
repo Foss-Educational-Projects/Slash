@@ -11,6 +11,7 @@ const DrumControlButtons = () => {
 
 	const activeValue = useSelector(state => state.activeValue.value)
 	const volume = useSelector(state => state.volume.value)
+	const bankMode = useSelector(state => state.bankMode.value)
 
 	const [vol, setVol] = useState(volume)
 
@@ -35,10 +36,12 @@ const DrumControlButtons = () => {
 		}
 	}
 	const toggleBanKMode = (e) => {
-		if(e.current.checked){
+		if(e.currentTarget.checked){
+			console.log(bankMode)
 			dispatch(switchBankMode(true))
 		}
 		else {
+			console.log(bankMode)
 			dispatch(switchBankMode(false))
 		}
 	}
@@ -58,6 +61,7 @@ const DrumControlButtons = () => {
 				id="custom-switch"
 				label="Bank"
 				className="fs-3 text-white"
+				onClick={toggleBanKMode}
 			/>
 			<Form.Label 
 				className="fs-4 m-0 text-start text-white drum-control-form-label" 

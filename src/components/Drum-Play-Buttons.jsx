@@ -1,13 +1,13 @@
-import React, {useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import Button from 'react-bootstrap/Button'
-import buttons from './../data/Audio'
+import buttons, { bankAudios } from './../data/Audio'
 import { changeText } from './../features/activeValueSlice'
 
 const DrumPlayButtons = () => {
 	const btnRef = useRef(null);
 	const audioVolume = useSelector((state) => state.volume.value)
-	const [text, setText] = useState(audioVolume)
+	const bankMode = useSelector((state) => state.bankMode.value)
 	const dispatch = useDispatch()
 
 	const keyDownEvents = (node) => {
@@ -15,7 +15,7 @@ const DrumPlayButtons = () => {
 		dom.childNodes[1].play();
 		dom.style.top = "10px";
 		setTimeout(() => {
-			dom.style.top = "0px";
+			dom.style.top = "";
 		}, 100)
 		dispatch(changeText(dom.value))
 	}
@@ -61,11 +61,12 @@ const DrumPlayButtons = () => {
 					break;
 			}
 		})
-	}, [text])
+	}, [audioVolume])
 	return (
 		<div className="play-button-container">
 			<div className="drum-play-buttons">
-				{buttons.map((btn, index) => {
+				{}
+				{bankMode ? buttons.map((btn, index) => {
 					return (
 						<Button 
 							variant="none" 
@@ -81,7 +82,25 @@ const DrumPlayButtons = () => {
 							</audio>
 						</Button>
 					)
-				})}
+				})
+					: bankAudios.map((btn, index) => {
+						return (
+							<Button 
+								variant="none" 
+								key={index} 
+								id={btn.id}
+								value={btn.audioName}
+								onClick={mouseDownEvents}
+								className='drum-pad text-uppercase'
+							>
+								{btn.id}
+								<audio>
+									<source src={btn.audioSrc} type="audio/mpeg" />
+								</audio>
+							</Button>
+						)
+					})
+				}
 			</div>
 		</div>
 	)

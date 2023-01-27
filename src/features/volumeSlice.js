@@ -6,7 +6,7 @@ const initialState = {
 
 export const volumeSlice = createSlice({
 	name: "volume",
-	initialState: initialState,
+	initialState,
 	reducers: {
 		increase: (state, action) => {
 			state.value = action.payload;

@@ -6,16 +6,17 @@ import { changeText } from './../features/activeValueSlice'
 
 const DrumPlayButtons = () => {
 	const audioVolume = useSelector((state) => parseFloat(Math.fround(state.volume.value / 100).toFixed(1)))
-	const powerMode = useSelector((state) => state.powerMode.value)
 	const bankMode = useSelector((state) => state.bankMode.value)
-	const dispatch = useDispatch()
+	const powerMode = useSelector((state) => state.powerMode.value)
 
+	const audioRef = useRef(null);
+	const dispatch = useDispatch()
+	
 	const keyDownEvents = (node) => {
 		let dom = document.getElementById(node);
-		console.log(powerMode)
-		if(powerMode){
-			dom.childNodes[1].play();
-		}
+
+		dom.childNodes[1].play();
+		dom.childNodes[1].volume = audioVolume;
 		dom.style.top = "10px";
 		setTimeout(() => {
 			dom.style.top = "";
@@ -25,13 +26,12 @@ const DrumPlayButtons = () => {
 
 	const mouseDownEvents = (e) => {
 		e.target.childNodes[1].play()
+		e.target.childNodes[1].volume = audioVolume;
 		dispatch(changeText(e.target.value))
 		
 	}
-	const setVolumeValue = (e) => {
-		e.audio = audioVolume;
-	}
 	useEffect(() => {
+		audioRef.current.volume = audioVolume;
 		window.addEventListener('keydown', (e) => {
 			switch (e.key) {
 				case 'q':
@@ -60,13 +60,14 @@ const DrumPlayButtons = () => {
 					break;
 				case 'c':
 					keyDownEvents("c")
+					console.log(bankMode)
 					break;
 				default:
 					console.log("This Key Is Not Associated With Any Functionality Of The App");
 					break;
 			}
 		})
-	}, [])
+	}, [audioVolume])
 	return (
 		<div className="play-button-container">
 			<div className="drum-play-buttons">
@@ -81,8 +82,15 @@ const DrumPlayButtons = () => {
 							className='drum-pad text-uppercase'
 						>
 							{btn.id}
-							<audio volume={audioVolume} src={btn.audioSrc} onVolumeChange={setVolumeValue}>
-							</audio>
+							{(() => {
+								if (powerMode) {
+									return <audio volume={audioVolume} ref={audioRef} src={btn.audioSrc} />
+								}
+								else {
+									return <audio muted={true} ref={audioRef} src={btn.audioSrc} />
+								}
+							})()}
+							
 						</Button>
 					)
 				})
@@ -97,7 +105,14 @@ const DrumPlayButtons = () => {
 								className='drum-pad text-uppercase'
 							>
 								{btn.id}
-								<audio volume={audioVolume} src={btn.audioSrc} onVolumeChange={setVolumeValue} />
+								{(() => {
+								if (powerMode) {
+									return <audio ref={audioRef} src={btn.audioSrc} />
+								}
+								else {
+									return <audio muted={true} ref={audioRef} src={btn.audioSrc} />
+								}
+							})()}
 							</Button>
 						)
 					})

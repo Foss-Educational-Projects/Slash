@@ -6,10 +6,11 @@ import { changeText } from "../features/activeValueSlice";
 import { switchPowerMode } from "../features/powerModeSlice";
 import { switchBankMode } from './../features/bankModeSlice'
 
+import { formLabelStyles } from "../assets/styles/formStyles";
 import volumeValueStyles from "../assets/styles/volumeValueStyle";
-const DrumControlButtons = () => {
-	const volumeRef = useRef(null)
 
+const DrumControlButtons = (props) => {
+	const volumeRef = useRef(null)
 	const activeValue = useSelector(state => state.activeValue.value)
 	const volume = useSelector(state => state.volume.value)
 	const bankMode = useSelector(state => state.bankMode.value)
@@ -25,14 +26,12 @@ const DrumControlButtons = () => {
 	const togglePowerMode = (e) => {
 		if (e.currentTarget.checked) {
 			console.log("Checked")
-			console.log(powerMode)
 			dispatch(changeText("Powered On"))
 			dispatch(switchPowerMode(true))
 			volumeRef.current.removeAttribute("disabled")
 		}
 		else {
 			console.log("Unchecked")
-			console.log(powerMode)
 			dispatch(changeText(""))
 			dispatch(switchPowerMode(false))
 			volumeRef.current.setAttribute("disabled", "false")
@@ -40,12 +39,10 @@ const DrumControlButtons = () => {
 	}
 	const toggleBankMode = (e) => {
 		if (e.currentTarget.checked) {
-			console.log(bankMode)
 			dispatch(changeText("Piano Kit"))
 			dispatch(switchBankMode(true))
 		}
 		else {
-			console.log(bankMode)
 			dispatch(changeText("Heater Kit"))
 			dispatch(switchBankMode(false))
 		}
@@ -53,7 +50,15 @@ const DrumControlButtons = () => {
 
 	return (
 		<div className="drum-control-buttons">
-			<div className="display-box text-white" id="display-box">{activeValue}</div>
+		{(() => {
+			if (powerMode) {
+				return <div className="display-box text-white" id="display-box">{activeValue}</div>
+			}
+			else {
+				return <div className="display-box text-white" id="display-box"></div>
+			}
+		})()}
+			
 			<Form.Check 
 				type="switch"
 				defaultChecked
@@ -71,7 +76,7 @@ const DrumControlButtons = () => {
 			/>
 			<Form.Label 
 				className="fs-4 m-0 text-start text-white drum-control-form-label" 
-				style={{ display: "flex", justifyContent: "space-between" }}
+				style={formLabelStyles}
 			>
 				<p>Volume</p>
 				<p style={volumeValueStyles}>{vol}</p>

@@ -1,18 +1,21 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
 import Button from 'react-bootstrap/Button'
-import {heaterAudios, bankAudios } from './../data/Audio'
+import { heaterAudios, bankAudios } from './../data/Audio'
 import { changeText } from './../features/activeValueSlice'
 
 const DrumPlayButtons = () => {
-	const btnRef = useRef(null);
-	const audioVolume = useSelector((state) => state.volume.value)
+	const audioVolume = useSelector((state) => parseFloat(Math.fround(state.volume.value / 100).toFixed(1)))
+	const powerMode = useSelector((state) => state.powerMode.value)
 	const bankMode = useSelector((state) => state.bankMode.value)
 	const dispatch = useDispatch()
 
 	const keyDownEvents = (node) => {
 		let dom = document.getElementById(node);
-		dom.childNodes[1].play();
+		console.log(powerMode)
+		if(powerMode){
+			dom.childNodes[1].play();
+		}
 		dom.style.top = "10px";
 		setTimeout(() => {
 			dom.style.top = "";
@@ -22,9 +25,11 @@ const DrumPlayButtons = () => {
 
 	const mouseDownEvents = (e) => {
 		e.target.childNodes[1].play()
-		e.target.childNodes[1].volume = audioVolume / 100;
 		dispatch(changeText(e.target.value))
 		
+	}
+	const setVolumeValue = (e) => {
+		e.audio = audioVolume;
 	}
 	useEffect(() => {
 		window.addEventListener('keydown', (e) => {
@@ -61,7 +66,7 @@ const DrumPlayButtons = () => {
 					break;
 			}
 		})
-	}, [audioVolume])
+	}, [])
 	return (
 		<div className="play-button-container">
 			<div className="drum-play-buttons">
@@ -76,8 +81,7 @@ const DrumPlayButtons = () => {
 							className='drum-pad text-uppercase'
 						>
 							{btn.id}
-							<audio>
-								<source src={btn.audioSrc} type="audio/mpeg" />
+							<audio volume={audioVolume} src={btn.audioSrc} onVolumeChange={setVolumeValue}>
 							</audio>
 						</Button>
 					)
@@ -93,9 +97,7 @@ const DrumPlayButtons = () => {
 								className='drum-pad text-uppercase'
 							>
 								{btn.id}
-								<audio>
-									<source src={btn.audioSrc} type="audio/mpeg" />
-								</audio>
+								<audio volume={audioVolume} src={btn.audioSrc} onVolumeChange={setVolumeValue} />
 							</Button>
 						)
 					})

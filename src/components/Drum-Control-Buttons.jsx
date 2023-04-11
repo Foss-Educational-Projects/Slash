@@ -79,7 +79,7 @@ const DrumControlButtons = (props) => {
 				style={formLabelStyles}
 			>
 				<p>Volume</p>
-				<p style={volumeValueStyles}>{vol}</p>
+				<p style={volumeValueStyles}>{volume}</p>
 			</Form.Label>
 			<Form.Range 
 				aria-valuemax={100}

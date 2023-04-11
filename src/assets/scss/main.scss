@@ -21,7 +21,11 @@ html, body {
 	justify-content: center;
 	align-items: center;
 	height: 100%;
-	background-color: rgba(0,0,0,0.9);
+	background-image: url('./../images/drum.png');
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
 }
 
 #drum-machine {

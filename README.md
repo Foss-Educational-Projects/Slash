@@ -2,9 +2,9 @@
 
 
 # Slash Drum
-## Using ReactJS, Redux, SCSS, JavaScript, ViteJS, BootStrap 5
+## Built Using ReactJS, Redux, SCSS, JavaScript, ViteJS, BootStrap 5
 
-## `Create, View & Sort Exercises`
+## `Play Drum Sounds(with some Piano too)`
 
 ### How To Setup Locally ?
 - install __NodeJS__(https://nodejs.dev)
